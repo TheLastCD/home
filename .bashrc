@@ -1,5 +1,8 @@
 # [[ $- != *i* ]] && return
-# eval "$(ssh-agent -s)"
+# if [ -z "$SSH_AUTH_SOCK" ]; then
+#   eval "$(ssh-agent -s)"
+#   ssh-add -t 28800
+# fi
 # export PATH="/opt:$PATH"
 export REPO="$HOME/git"
 
@@ -10,6 +13,7 @@ alias n='nvim'
 
 alias la='ls -a'
 alias ll='ls -l'
+alias :q='exit'
 
 alias display_refresh='xrandr --auto && arandr'
 

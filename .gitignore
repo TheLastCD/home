@@ -2,3 +2,15 @@ Downloads/*
 Documents/*
 git/*
 test_bed/*
+*.tmp
+*.log
+*.cache
+.kde/*
+.local/*
+.mozilla/*
+node_modules/*
+.ssh/*
+.storybook/*
+.wine/*
+.wine-vju/*
+
