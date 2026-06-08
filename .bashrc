@@ -14,6 +14,7 @@ alias n='nvim'
 alias la='ls -a'
 alias ll='ls -l'
 alias :q='exit'
+alias pull-all='$HOME/.config/sh-scripts/pull_all.sh'
 
 alias display_refresh='xrandr --auto && arandr'
 
