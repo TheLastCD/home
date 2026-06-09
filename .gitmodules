@@ -1,3 +1,6 @@
 [submodule ".config"]
 	path = .config
 	url = https://github.com/TheLastCD/.config
+[submodule ".fzf"]
+	path = .fzf
+	url = https://github.com/junegunn/fzf.git
