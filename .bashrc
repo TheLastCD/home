@@ -15,6 +15,7 @@ alias la='ls -a'
 alias ll='ls -l'
 alias :q='exit'
 alias pull-all='$HOME/.config/sh-scripts/pull_all.sh'
+alias ssh-dell='ssh -XYC localusr@archdell'
 
 alias display_refresh='xrandr --auto && arandr'
 
@@ -83,6 +84,10 @@ _repo_complete() {
 
 complete -o nospace -F _repo_complete repo
 
-
+export PATH="$HOME/.config/emacs/bin:$PATH"
 
 . "$HOME/.local/bin/env"
+
+
+
+
