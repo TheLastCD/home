@@ -5,6 +5,8 @@
 # fi
 # export PATH="/opt:$PATH"
 export REPO="$HOME/git"
+export GPG_TTY=$(tty)
+export PATH=$PATH:/opt/microchip/xc16/v2.10/bin/
 
 
 alias ls='ls --color=auto'
@@ -37,6 +39,16 @@ export HISTSIZE=100000
 export HISTFILESIZE=1000000
 
 
+port-find(){
+	sudo ss -tulpn | grep :$1
+	if [&2 -eq "y" ]; then
+		kill -9 $1		
+	fi
+} 
+
+new-checkout() {
+  git checkout $1
+}
 
 
 parse_git_branch() {
@@ -69,6 +81,34 @@ repo() {
   cd "$REPO/$1" || return
 }
 
+force-sysctl() {
+    if (($# != 2)); then
+        printf 'Usage: force-sysctl ACTION UNIT-PATTERN\n' >&2
+        return 2
+    fi
+
+    local action=$1
+    local pattern=$2
+    local -a units
+
+    mapfile -t units < <(
+        systemctl --user list-units \
+            --all \
+            --no-legend \
+            --plain \
+            --full \
+            "$pattern" |
+        awk '{ print $1 }'
+    )
+
+    if ((${#units[@]} == 0)); then
+        printf 'No matching user units: %s\n' "$pattern" >&2
+        return 1
+    fi
+
+    systemctl --user "$action" --now "${units[@]}"
+}
+
 builder() {
   cd "$HOME/git/isotek-builder/" || return
   scons -j15 debug=1
@@ -87,7 +127,7 @@ complete -o nospace -F _repo_complete repo
 export PATH="$HOME/.config/emacs/bin:$PATH"
 
 . "$HOME/.local/bin/env"
+ 
 
 
-
-
+# source '/home/charlie/.bash_completions/unsloth.sh'
